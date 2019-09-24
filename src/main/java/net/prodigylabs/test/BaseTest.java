@@ -2,6 +2,7 @@ package net.prodigylabs.test;
 
 import net.prodigylabs.config.ObjectRepository;
 
+/** @author vaishali.katta *  */
 public class BaseTest {
 	
 	static {

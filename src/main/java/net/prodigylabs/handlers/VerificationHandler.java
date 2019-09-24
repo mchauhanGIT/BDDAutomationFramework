@@ -2,6 +2,7 @@ package net.prodigylabs.handlers;
 
 import org.junit.Assert;
 
+/** @author vaishali.katta */
 public class VerificationHandler {
 	
 	public static void verifyTrue(boolean flag)

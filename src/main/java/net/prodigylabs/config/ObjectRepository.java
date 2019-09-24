@@ -14,6 +14,8 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.openqa.selenium.By;
 
+/** @author vaishali.katta */
+
 public class ObjectRepository {
 
 	private static CombinedConfiguration propAggregator = new CombinedConfiguration();

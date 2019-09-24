@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 
 import com.google.common.io.Files;
 
+/** @author vaishali.katta *  */
 public class ScreenshotHandler {
 	
 	protected static WebDriver driver = null;

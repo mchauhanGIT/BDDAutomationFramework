@@ -13,6 +13,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import net.prodigylabs.config.ObjectRepository;
 
+/** @author vaishali.katta */
 public class CapabilitiesGenerator {
 	
 	WebDriver driver = null;
