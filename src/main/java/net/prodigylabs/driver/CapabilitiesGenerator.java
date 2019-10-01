@@ -18,7 +18,12 @@ public class CapabilitiesGenerator {
 	
 	WebDriver driver = null;
 
-	private String browserType = ObjectRepository.getString("global.browser.name");
+	  public static final String USERNAME = "vaishalikatta1";
+	  public static final String AUTOMATE_KEY = "exixicaC9QHJNZZWYEWn";
+	  public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub";
+	
+	//private String browserType = ObjectRepository.getString("global.browser.name");
+	
 	
 	private CapabilitiesGenerator() {
 	}
@@ -30,8 +35,7 @@ public class CapabilitiesGenerator {
 		return instance;
 	}
 	
-	@SuppressWarnings("deprecation")
-	public WebDriver launchBrowser()
+	public WebDriver launchBrowser(String browserType)
 	{
 		switch (browserType) {
 		case "chrome":
@@ -44,7 +48,7 @@ public class CapabilitiesGenerator {
 			driver = new InternetExplorerDriver(getbrowserCapabilities(browserType));
 			break;
 		default:
-			driver = new ChromeDriver(getbrowserCapabilities(browserType));
+			driver = new FirefoxDriver(getbrowserCapabilities(browserType));
 			break;
 		}
 		return driver;		
@@ -73,10 +77,10 @@ public class CapabilitiesGenerator {
 			cap.setCapability("platform",ObjectRepository.getString("global.browser.capability.platform"));
 			cap.setBrowserName(ObjectRepository.getString("global.browser.capability.browserName.ie"));
 		default:
-			System.setProperty("webdriver.chrome.driver",ObjectRepository.getString("global.browser.chrome.driver.executable"));
-			cap = DesiredCapabilities.chrome();
+			System.setProperty("webdriver.gecko.driver", ObjectRepository.getString("global.browser.gecko.driver.executable"));
+			cap=DesiredCapabilities.firefox();
 			cap.setCapability("platform",ObjectRepository.getString("global.browser.capability.platform"));
-			cap.setBrowserName(ObjectRepository.getString("global.browser.capability.browserName.ch"));
+			cap.setBrowserName(ObjectRepository.getString("global.browser.capability.browserName.ff"));
 			break;
 		}		
 		return cap;
@@ -86,8 +90,12 @@ public class CapabilitiesGenerator {
 	{
 		switch (platformType) {
 		case "Android":
+			System.err.println("launch");
 			DesiredCapabilities getcap = getmobileCapabilities(platformType);
+			System.err.println("launch 2");
 			driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),getcap);
+				//driver = new AndroidDriver<MobileElement>(new URL(URL),getcap);
+				System.err.println("launch 3");
 			break;
 		case "iOS":
 			driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),getmobileCapabilities(platformType));
@@ -114,6 +122,7 @@ public class CapabilitiesGenerator {
 	     
 	        cap.setCapability("appPackage", ObjectRepository.getString("global.capability.apppackage"));
 	        cap.setCapability("appActivity",ObjectRepository.getString("global.capability.appactivity"));
+	       // cap.setCapability("app","bs://6f00f2175be1be9d969d367c992ca2a0f74e6ced");
 	        
 	        cap.setCapability("skipUnlock","true");
 	        cap.setCapability("noReset","false");
