@@ -1,7 +1,11 @@
 package net.prodigylabs.handlers;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,6 +17,9 @@ public class WebElementHandler {
 	
 	protected WebDriver driver = null;
 	WebDriverWait driverWait = null;
+	private boolean flag = false;
+	int count = ObjectRepository.getInt("global.driver.interate");
+	JavascriptExecutor jse = (JavascriptExecutor)driver;
 	
 	public WebElementHandler(WebDriver webdriver)
 	{
@@ -44,14 +51,68 @@ public class WebElementHandler {
 		driver.findElement(By.xpath(locator)).sendKeys(text);
 	}
 	
+	public void enterText(By locator, String text) throws Exception {
+		setDriverWait(locator);
+		WebElement we = driver.findElement(locator);
+		if (we!=null) {
+			setDriverWait(locator);
+			we.click();
+			we.sendKeys(text);
+		}		
+	}
+	
+	public void enterTextUsingJavascript(By locator, String text) throws Exception {
+		setDriverWait(locator);
+		WebElement we = driver.findElement(locator);
+		if (we!=null) {
+			setDriverWait(locator);
+			we.click();
+			we.clear();			
+			System.out.println("Value"+we.getAttribute("value"));
+			System.out.println("id"+we.getAttribute("id"));
+			System.out.println("role"+we.getAttribute("role"));
+			System.out.println("class"+we.getAttribute("class"));
+			System.out.println("Text"+ we.getText());
+			System.out.println("arguments[0].value='"+text+"';");
+
+			//String statement = "document.getElementByID('tab1-businessPartnerOrigination-capturePerson--CommPhoneEditDetails-subscriber-input-inner').setAttribute('value', '444-333-3333')";
+			String statement = "document.getElementById('tab1-businessPartnerOrigination-capturePerson--CommPhoneEditDetails-subscriber-input-inner').value='444-444-4444'";
+			System.out.println(statement);
+			jse.executeScript(statement);
+			//jse.executeScript("arguments[0].setAttribute('value', '" + text +"')", we);
+
+			//jse.executeScript("arguments[0].value='"+text+"';", we);
+			
+			//we.sendKeys(text);
+		}		
+	}
+	
+	public String getText(By locator) {
+		setDriverWait(locator);
+		String text = driver.findElement(locator).getText();
+		return text;
+	}
+	
 	public boolean isDisplayed(String locator) {
 		setDriverWait(locator);
 		return driver.findElement(By.xpath(locator)).isDisplayed();
 	}
 	
-	public boolean isDisplayed(By locator) {
-		setDriverWait(locator);
-		return driver.findElement(locator).isDisplayed();
+	public boolean isDisplayed(By locator) throws Exception {
+		setDriverWait(locator);		
+		WebElement we = driver.findElement(locator);
+		if (we!=null) {
+			for(int i=0; i<=count;i++){
+				  try{
+				     flag = we.isDisplayed();
+				     break;
+				  }
+				  catch(Exception e){
+					     throw new Exception("ELement is not displayed "+locator);
+					  }
+				  }
+		}
+		return flag;
 	}
 	
 	public Select getDropDown(By locator) throws Exception {
@@ -83,5 +144,20 @@ public class WebElementHandler {
 		} else {
 			throw new Exception("Unable to locate dropdown element");
 		}
+	}
+	
+	public void waitforinvisibilityofElement(By locator) throws Exception {
+		driverWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	}
+	
+	public void clickElementByText(By locator, String text) throws Exception {
+		setDriverWait(locator);
+		List<WebElement> allelements = driver.findElements(locator);
+		for (WebElement element : allelements) {
+			if (element.getText()!=null && element.getText().contains(text)) {
+				element.click();
+				break;
+			}
+		}		
 	}
 }

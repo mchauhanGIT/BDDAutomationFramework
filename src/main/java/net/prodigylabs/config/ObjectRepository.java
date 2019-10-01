@@ -68,6 +68,10 @@ public class ObjectRepository {
 		return propAggregator.getLong(key);
 	}
 	
+	public static int getInt(String key) {
+		return propAggregator.getInt(key);
+	}
+	
 	public static By getobjectLocator(String locatorName)
 	 {
 		String locatorProperty = propAggregator.getString(locatorName);
