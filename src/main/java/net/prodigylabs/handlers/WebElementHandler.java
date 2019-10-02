@@ -78,6 +78,12 @@ public class WebElementHandler {
 		return text;
 	}
 	
+	public String getText(String locator) {
+		setDriverWait(locator);
+		String text = driver.findElement(By.xpath(locator)).getText();
+		return text;
+	}
+	
 	public boolean isDisplayed(String locator) {
 		setDriverWait(locator);
 		return driver.findElement(By.xpath(locator)).isDisplayed();
