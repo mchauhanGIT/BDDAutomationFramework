@@ -20,6 +20,7 @@ public class WebElementHandler {
 	private boolean flag = false;
 	int count = ObjectRepository.getInt("global.driver.interate");
 	JavascriptExecutor jse = null;
+
 	
 	public WebElementHandler(WebDriver webdriver)
 	{
@@ -77,13 +78,13 @@ public class WebElementHandler {
 		String text = driver.findElement(locator).getText();
 		return text;
 	}
-	
+
 	public String getText(String locator) {
 		setDriverWait(locator);
 		String text = driver.findElement(By.xpath(locator)).getText();
 		return text;
 	}
-	
+  
 	public boolean isDisplayed(String locator) {
 		setDriverWait(locator);
 		return driver.findElement(By.xpath(locator)).isDisplayed();

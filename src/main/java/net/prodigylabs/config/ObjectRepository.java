@@ -41,7 +41,7 @@ public class ObjectRepository {
 			
 			while (fileIterator.hasNext()) 
 			{
-	            System.out.println("Next"); 
+	            System.out.println("Loading properties file"); 
 	            appendProperties(fileIterator.next());
 			}
 	}
@@ -71,7 +71,7 @@ public class ObjectRepository {
 	public static int getInt(String key) {
 		return propAggregator.getInt(key);
 	}
-	
+
 	public static By getobjectLocator(String locatorName)
 	 {
 		String locatorProperty = propAggregator.getString(locatorName);
