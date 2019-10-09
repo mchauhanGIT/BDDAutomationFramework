@@ -19,11 +19,13 @@ public class WebElementHandler {
 	WebDriverWait driverWait = null;
 	private boolean flag = false;
 	int count = ObjectRepository.getInt("global.driver.interate");
-	JavascriptExecutor jse = (JavascriptExecutor)driver;
+	JavascriptExecutor jse = null;
+
 	
 	public WebElementHandler(WebDriver webdriver)
 	{
 		driver=webdriver;
+		jse = (JavascriptExecutor)driver;
 	}
 	
 	public void setDriverWait(String locator) {
@@ -67,23 +69,7 @@ public class WebElementHandler {
 		if (we!=null) {
 			setDriverWait(locator);
 			we.click();
-			we.clear();			
-			System.out.println("Value"+we.getAttribute("value"));
-			System.out.println("id"+we.getAttribute("id"));
-			System.out.println("role"+we.getAttribute("role"));
-			System.out.println("class"+we.getAttribute("class"));
-			System.out.println("Text"+ we.getText());
-			System.out.println("arguments[0].value='"+text+"';");
-
-			//String statement = "document.getElementByID('tab1-businessPartnerOrigination-capturePerson--CommPhoneEditDetails-subscriber-input-inner').setAttribute('value', '444-333-3333')";
-			String statement = "document.getElementById('tab1-businessPartnerOrigination-capturePerson--CommPhoneEditDetails-subscriber-input-inner').value='444-444-4444'";
-			System.out.println(statement);
-			jse.executeScript(statement);
-			//jse.executeScript("arguments[0].setAttribute('value', '" + text +"')", we);
-
-			//jse.executeScript("arguments[0].value='"+text+"';", we);
-			
-			//we.sendKeys(text);
+			jse.executeScript("arguments[0].value='"+text+"';", we);
 		}		
 	}
 	
@@ -92,7 +78,13 @@ public class WebElementHandler {
 		String text = driver.findElement(locator).getText();
 		return text;
 	}
-	
+
+	public String getText(String locator) {
+		setDriverWait(locator);
+		String text = driver.findElement(By.xpath(locator)).getText();
+		return text;
+	}
+  
 	public boolean isDisplayed(String locator) {
 		setDriverWait(locator);
 		return driver.findElement(By.xpath(locator)).isDisplayed();
