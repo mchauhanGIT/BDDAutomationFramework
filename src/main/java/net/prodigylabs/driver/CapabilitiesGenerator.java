@@ -90,16 +90,18 @@ public class CapabilitiesGenerator {
 	{
 		switch (platformType) {
 		case "Android":
-			System.err.println("launch");
+			
 			DesiredCapabilities getcap = getmobileCapabilities(platformType);
-			System.err.println("launch 2");
+			
 			driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),getcap);
 				//driver = new AndroidDriver<MobileElement>(new URL(URL),getcap);
-				System.err.println("launch 3");
+			
 			break;
 		case "iOS":
+			
 			driver = new IOSDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"),getmobileCapabilities(platformType));
 			break;
+			
 		default:
 			
 			break;
@@ -120,8 +122,8 @@ public class CapabilitiesGenerator {
 	        cap.setCapability("automationName", "UiAutomator2");
 	        cap.setCapability("platformVersion", ObjectRepository.getString("global.capability.platform.version"));
 	     
-	        cap.setCapability("appPackage", ObjectRepository.getString("global.capability.apppackage"));
-	        cap.setCapability("appActivity",ObjectRepository.getString("global.capability.appactivity"));
+	        cap.setCapability("appPackage", ObjectRepository.getString("global.capability.meedAppPackage"));
+	        cap.setCapability("appActivity",ObjectRepository.getString("global.capability.meedAppActivity"));
 	       // cap.setCapability("app","bs://6f00f2175be1be9d969d367c992ca2a0f74e6ced");
 	        
 	        cap.setCapability("skipUnlock","true");
@@ -129,7 +131,8 @@ public class CapabilitiesGenerator {
 	        cap.setCapability("unicodeKeyboard", true);
 	        cap.setCapability("resetKeyboard", true);
 	        cap.setCapability("autoAcceptAlerts", true);
-	   		cap.setCapability("autoDismissAlerts", true);		
+	   		cap.setCapability("autoDismissAlerts", true);
+	   		
 	   		break;
 		case "iOS":
 
