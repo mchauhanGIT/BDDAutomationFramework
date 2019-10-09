@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -142,9 +143,31 @@ public class WebElementHandler {
 		driverWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 	}
 	
+	public void waitforinvisibilityofAllElements(By locator) throws Exception {
+		driverWait.until(myCustomCondition());
+		driverWait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElements(locator)));
+	}
+	
+	public static ExpectedCondition<Boolean> myCustomCondition() {
+		    return new ExpectedCondition<Boolean>() {
+		      @Override
+		      public Boolean apply(WebDriver driver) {return (Boolean) ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");}};
+	  }
+	  
 	public void clickElementByText(By locator, String text) throws Exception {
 		setDriverWait(locator);
 		List<WebElement> allelements = driver.findElements(locator);
+		for (WebElement element : allelements) {
+			if (element.getText()!=null && element.getText().contains(text)) {
+				element.click();
+				break;
+			}
+		}		
+	}
+	
+	public void clickElementByText(String locator, String text) throws Exception {
+		setDriverWait(locator);
+		List<WebElement> allelements = driver.findElements(By.xpath(locator));
 		for (WebElement element : allelements) {
 			if (element.getText()!=null && element.getText().contains(text)) {
 				element.click();
