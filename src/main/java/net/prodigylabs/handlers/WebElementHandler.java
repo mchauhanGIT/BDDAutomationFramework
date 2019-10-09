@@ -170,6 +170,8 @@ public class WebElementHandler {
 		List<WebElement> allelements = driver.findElements(By.xpath(locator));
 		for (WebElement element : allelements) {
 			if (element.getText()!=null && element.getText().contains(text)) {
+				jse.executeScript("arguments[0].scrollIntoView(true);", element);
+				Thread.sleep(1000);
 				element.click();
 				break;
 			}
