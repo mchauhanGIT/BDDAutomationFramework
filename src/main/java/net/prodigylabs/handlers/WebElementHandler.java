@@ -191,4 +191,13 @@ public class WebElementHandler {
 			}
 		}		
 	}
+	
+	public boolean verifyElementNotPresent(String locator) throws Exception {
+		try {
+			flag = driver.findElements(By.xpath(ObjectRepository.getString(locator))).size()>0;
+		} catch (Exception e) {
+		     throw new Exception("verifyElementNotPresent "+flag);
+		}
+		return flag;
+	}
 }
