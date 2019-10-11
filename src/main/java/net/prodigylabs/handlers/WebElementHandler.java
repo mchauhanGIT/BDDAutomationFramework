@@ -85,6 +85,20 @@ public class WebElementHandler {
 		String text = driver.findElement(By.xpath(locator)).getText();
 		return text;
 	}
+	
+	public boolean verifyTextInList(String locator, String text) {
+		try {
+			setDriverWait(ObjectRepository.getString(locator));
+			List<WebElement> webElements = driver.findElements(By.xpath(ObjectRepository.getString(locator)));
+			for (WebElement webElement : webElements) {
+				flag = webElement.getText().contains(text);
+				if (flag == true) break;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return flag;
+	}
   
 	public boolean isDisplayed(String locator) {
 		setDriverWait(locator);
@@ -176,5 +190,14 @@ public class WebElementHandler {
 				break;
 			}
 		}		
+	}
+	
+	public boolean verifyElementNotPresent(String locator) throws Exception {
+		try {
+			flag = driver.findElements(By.xpath(ObjectRepository.getString(locator))).size()>0;
+		} catch (Exception e) {
+		     throw new Exception("verifyElementNotPresent "+flag);
+		}
+		return flag;
 	}
 }
