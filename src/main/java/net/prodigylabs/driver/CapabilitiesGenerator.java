@@ -122,8 +122,8 @@ public class CapabilitiesGenerator {
 	        cap.setCapability("automationName", "UiAutomator2");
 	        cap.setCapability("platformVersion", ObjectRepository.getString("global.capability.platform.version"));
 
-	        cap.setCapability("appPackage", ObjectRepository.getString("global.capability.meedAppPackage"));
-	        cap.setCapability("appActivity",ObjectRepository.getString("global.capability.meedAppActivity"));
+	        cap.setCapability("appPackage", ObjectRepository.getString("global.capability.NewMeedAppPackage"));
+	        cap.setCapability("appActivity",ObjectRepository.getString("global.capability.NewMeedAppActivity"));
 
         // cap.setCapability("app","bs://6f00f2175be1be9d969d367c992ca2a0f74e6ced");
 	        
