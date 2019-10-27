@@ -74,11 +74,14 @@ public class ObjectRepository {
 
 	public static By getobjectLocator(String locatorName)
 	 {
+		
 		String locatorProperty = propAggregator.getString(locatorName);
 		// System.out.println(locatorProperty.toString());
 		String locatorType = locatorProperty.split(":")[0];
 		String locatorValue = locatorProperty.split(":")[1];
 	 
+	//System.out.println("Details: "+locatorProperty +"\n" +locatorType+"\n"+locatorValue);
+		
 		By locator = null;
 		switch(locatorType)
 		{
@@ -107,6 +110,7 @@ public class ObjectRepository {
 				locator = By.className(locatorValue);
 				break;
 		}
+	
 		return locator;
 	 }
 }
